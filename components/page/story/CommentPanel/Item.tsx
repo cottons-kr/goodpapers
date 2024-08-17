@@ -43,8 +43,8 @@ export function StoryCommentPanelItem(props: StoryCommentPanelItemProps) {
         <div onClick={() => {
           if (isLiked) return
           const action = async () => {
-            await likeComment(props.commnet.id)
             setIsLiked(true)
+            await likeComment(props.commnet.id)
           }
           action()
         }}>
@@ -58,7 +58,10 @@ export function StoryCommentPanelItem(props: StoryCommentPanelItemProps) {
             </Typography.Text>
           </Flex>
         </div>
-        <Image src={Warning} alt='신고' />
+        <Image
+          src={Warning} alt='신고'
+          onClick={() => confirm('정말 이 댓글을 신고하시겠습니까?') && alert('신고가 접수되었습니다.')}
+        />
       </Flex>
     </Flex>
   </>
