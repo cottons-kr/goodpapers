@@ -23,6 +23,7 @@ export async function uploadStory(formData: FormData) {
     data: {
       uploaderName: session.user.name,
       uploaderEmail: session.user.email,
+      title: data.title,
       content: data.content,
       images: [imageUrl],
     },

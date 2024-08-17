@@ -9,10 +9,14 @@ import Favorite from '@/public/icons/favorite.svg'
 import FavoriteFill from '@/public/icons/favorite_fill.svg'
 import Warning from '@/public/icons/warning.svg'
 import Image from 'next/image'
+import { Comment, Like } from '@prisma/client'
 
 import s from './style.module.scss'
 
-export function StoryCommentPanelItem() {
+type StoryCommentPanelItemProps = {
+  commnet: Comment & { likes: Like[] }
+}
+export function StoryCommentPanelItem(props: StoryCommentPanelItemProps) {
   return <>
     <Flex className={s.item} direction='column' gap={NumberPreset[8]}>
       <Flex direction='column' gap={NumberPreset[4]}>
@@ -20,10 +24,10 @@ export function StoryCommentPanelItem() {
           color={ColorPalette.Gray600}
           size={TypographySize.TINY}
         >
-          홍길동
+          {props.commnet.commenterName}
         </Typography.Text>
         <Typography.Text size={TypographySize.MEDIUM}>
-          응원의 메세지 내용
+          {props.commnet.content}
         </Typography.Text>
       </Flex>
       <Flex align='center' gap={NumberPreset[16]}>
@@ -33,7 +37,7 @@ export function StoryCommentPanelItem() {
             color={ColorPalette.Peach}
             size={TypographySize.TINY}
           >
-            {182}
+            {props.commnet.likes.length}
           </Typography.Text>
         </Flex>
         <Image src={Warning} alt='신고' />

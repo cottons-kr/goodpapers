@@ -42,6 +42,10 @@ export default function NewStoryPage() {
 
       <NewStoryUploadImages />
 
+      <Label text='제목' essential>
+        <TextField name='title' />
+      </Label>
+
       <Label className={s.textfield} text='내용' essential>
         <TextField name='content' multiline />
       </Label>

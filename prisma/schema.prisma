@@ -13,10 +13,10 @@ model Story {
 
   uploaderName  String
   uploaderEmail String
+  title         String
   content       String
   images        String[]
 
-  likes    Like[]
   comments Comment[]
   selected SelectedStory?
 
@@ -39,19 +39,21 @@ model Comment {
 
   commenterName  String
   commenterEmail String
+  content        String
 
-  story Story @relation(fields: [storyId], references: [id])
+  story Story  @relation(fields: [storyId], references: [id])
+  likes Like[]
 
   createdAt DateTime @default(now())
 }
 
 model Like {
-  id      String @id @default(uuid())
-  storyId String
+  id        String @id @default(uuid())
+  commentId String
 
   likerEmail String
 
-  story Story @relation(fields: [storyId], references: [id])
+  comment Comment @relation(fields: [commentId], references: [id])
 
   createdAt DateTime @default(now())
 }

@@ -6,12 +6,35 @@ import { ColorPalette } from '@/lib/colors'
 import { NumberPreset } from '@/lib/variables'
 import StoryPhoto from '@/components/page/story/Photo'
 import StoryCommentPanel from '@/components/page/story/CommentPanel'
+import { redirect } from 'next/navigation'
+import { prisma } from '@/utils/prisma'
 
 import s from './style.module.scss'
 
-export default function StoryPage() {
+export default async function StoryPage() {
+  const selectedStory = await prisma.selectedStory.findFirst({
+    orderBy: { createdAt: 'desc' },
+    include: {
+      story: {
+        include: {
+          comments: {
+            include: {
+              likes: true
+            },
+            orderBy: { createdAt: 'desc' },
+          },
+        }
+      }
+    },
+  })
+  if (!selectedStory?.story) {
+    redirect('/')
+  }
+  const { story } = selectedStory
+  console.log(story)
+
   return <>
-    <StoryCommentPanel />
+    <StoryCommentPanel storyId={story.id} comments={story.comments} />
 
     <Flex className={s.container} direction='column' gap={NumberPreset[30]}>
       <StoryTopbar />
@@ -20,20 +43,14 @@ export default function StoryPage() {
         <Typography.Display
           size={TypographySize.SMALL}
           weight={TypographyWeight.SEMIBOLD}
-        >
-          사연 제목
-        </Typography.Display>
+        >{story.title}</Typography.Display>
         <Typography.Text
           color={ColorPalette.Gray600}
           size={TypographySize.SMALL}
-        >
-          사연자 이름
-        </Typography.Text>
+        >{story.uploaderName}</Typography.Text>
       </Flex>
 
-      <pre className={s.content}>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti, asperiores dolorum eaque magnam consectetur quibusdam aperiam atque esse sed amet iusto quasi officiis consequatur non assumenda veniam suscipit rem dolores.
-      </pre>
+      <pre className={s.content}>{story.content}</pre>
 
       <Flex direction='column' gap={NumberPreset[8]}>
         <Typography.Text
@@ -42,20 +59,14 @@ export default function StoryPage() {
         >
           사진
         </Typography.Text>
-        <div className={s.photos}>
-          <StoryPhoto order={1} src='' />
-          <StoryPhoto order={2} src='' />
-          <StoryPhoto order={3} src='' />
-          <StoryPhoto order={4} src='' />
-          <StoryPhoto order={5} src='' />
-          <StoryPhoto order={6} src='' />
-          <StoryPhoto order={7} src='' />
-          <StoryPhoto order={8} src='' />
-          <StoryPhoto order={9} src='' />
-          <StoryPhoto order={10} src='' />
-          <StoryPhoto order={11} src='' />
-          <StoryPhoto order={12} src='' />
-        </div>
+        <div className={s.photos}>{
+          story.images.map((image, i) => (
+            <StoryPhoto
+              key={i} order={i + 1}
+              src={`${process.env.MINIO_USE_SSL ? 'https' : 'http'}://${process.env.MINIO_ENDPOINT}/${process.env.MINIO_BUCKET_NAME}/${image}`}
+            />
+          ))
+        }</div>
       </Flex>
     </Flex>
   </>
