@@ -31,6 +31,31 @@ export async function uploadComment(formData: FormData) {
   revalidatePath('/story')
 }
 
-export async function likeComment(formData: FormData) {
+export async function likeComment(commentId: string) {
+  const session = await auth()
+  if (
+    !session?.user ||
+    !session.user.email ||
+    !session.user.name
+  ) {
+    throw new Error('로그인이 필요합니다.')
+  }
+  
+  const comment = await prisma.comment.findUnique({
+    where: { id: commentId }
+  })
+  if (!comment) {
+    throw new Error('댓글을 찾을 수 없습니다.')
+  }
 
+  await prisma.like.create({
+    data: {
+      likerEmail: session.user.email,
+      comment: {
+        connect: { id: commentId }
+      }
+    }
+  })
+
+  revalidatePath('/story')
 }

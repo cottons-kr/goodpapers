@@ -84,7 +84,11 @@ export default function StoryCommentPanel(props: StoryCommentPanelProps) {
         </Typography.Text>
         <Flex direction='column' gap={NumberPreset[16]}>{
           props.comments.map((comment) => (
-            <StoryCommentPanelItem key={comment.id} commnet={comment} />
+            <StoryCommentPanelItem
+              key={comment.id}
+              accountEmail={session.data?.user?.email ?? ''}
+              commnet={comment}
+            />
           ))
         }</Flex>
       </Flex>

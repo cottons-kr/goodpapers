@@ -10,13 +10,22 @@ import FavoriteFill from '@/public/icons/favorite_fill.svg'
 import Warning from '@/public/icons/warning.svg'
 import Image from 'next/image'
 import { Comment, Like } from '@prisma/client'
+import { useEffect, useState } from 'react'
+import { likeComment } from '@/lib/actions/comment'
 
 import s from './style.module.scss'
 
 type StoryCommentPanelItemProps = {
+  accountEmail: string
   commnet: Comment & { likes: Like[] }
 }
 export function StoryCommentPanelItem(props: StoryCommentPanelItemProps) {
+  const [isLiked, setIsLiked] = useState(props.commnet.likes.some(like => like.likerEmail === props.accountEmail))
+
+  useEffect(() => {
+    setIsLiked(props.commnet.likes.some(like => like.likerEmail === props.accountEmail))
+  }, [props.accountEmail])
+  
   return <>
     <Flex className={s.item} direction='column' gap={NumberPreset[8]}>
       <Flex direction='column' gap={NumberPreset[4]}>
@@ -31,15 +40,24 @@ export function StoryCommentPanelItem(props: StoryCommentPanelItemProps) {
         </Typography.Text>
       </Flex>
       <Flex align='center' gap={NumberPreset[16]}>
-        <Flex align='center' gap={NumberPreset[4]} width='fit-content'>
-          <Image src={Favorite} alt='좋아요' />
-          <Typography.Text
-            color={ColorPalette.Peach}
-            size={TypographySize.TINY}
-          >
-            {props.commnet.likes.length}
-          </Typography.Text>
-        </Flex>
+        <div onClick={() => {
+          if (isLiked) return
+          const action = async () => {
+            await likeComment(props.commnet.id)
+            setIsLiked(true)
+          }
+          action()
+        }}>
+          <Flex align='center' gap={NumberPreset[4]} width='fit-content'>
+            <Image src={isLiked ? FavoriteFill : Favorite} alt='좋아요' />
+            <Typography.Text
+              color={ColorPalette.Peach}
+              size={TypographySize.TINY}
+            >
+              {props.commnet.likes.length}
+            </Typography.Text>
+          </Flex>
+        </div>
         <Image src={Warning} alt='신고' />
       </Flex>
     </Flex>
