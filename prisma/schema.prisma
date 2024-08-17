@@ -1,0 +1,57 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi", "prismaSchemaFolder"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Story {
+  id String @id @default(uuid())
+
+  uploaderName  String
+  uploaderEmail String
+  content       String
+  images        String[]
+
+  likes    Like[]
+  comments Comment[]
+  selected SelectedStory?
+
+  createdAt DateTime @default(now())
+}
+
+model SelectedStory {
+  id      String @id @default(uuid())
+  order   Int    @default(autoincrement())
+  storyId String @unique
+
+  story Story @relation(fields: [storyId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id      String @id @default(uuid())
+  storyId String
+
+  commenterName  String
+  commenterEmail String
+
+  story Story @relation(fields: [storyId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id      String @id @default(uuid())
+  storyId String
+
+  likerEmail String
+
+  story Story @relation(fields: [storyId], references: [id])
+
+  createdAt DateTime @default(now())
+}

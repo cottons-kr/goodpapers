@@ -1,3 +1,5 @@
+'use client'
+
 import Flex from '@/components/layout/Flex'
 import { NumberPreset } from '@/lib/variables'
 import Typography from '@/components/ui/Typography'
@@ -15,7 +17,14 @@ import s from './page.module.scss'
 
 export default function NewStoryPage() {
   return <>
-    <Form className={s.form} action={uploadStory} gap={NumberPreset[30]}>
+    <Form className={s.form} action={async formData => {
+      try {
+        await uploadStory(formData)
+      } catch (err) {
+        console.error(err)
+        alert('사연을 올리는 중에 오류가 발생했습니다.')
+      }
+    }} gap={NumberPreset[30]}>
       <Flex className={s.title} direction='column' gap={NumberPreset[8]}>
         <Typography.Display
           size={TypographySize.SMALL}
@@ -34,7 +43,7 @@ export default function NewStoryPage() {
       <NewStoryUploadImages />
 
       <Label className={s.textfield} text='내용' essential>
-        <TextField multiline />
+        <TextField name='content' multiline />
       </Label>
 
       <Button

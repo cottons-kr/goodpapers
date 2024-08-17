@@ -6,11 +6,19 @@ import Typography from '@/components/ui/Typography'
 import { ColorPalette } from '@/lib/colors'
 import { TypographySize, TypographyWeight } from '@/components/ui/Typography/shared'
 import Button from '@/components/ui/Button'
-import { ButtonSize, ButtonVariant } from '@/components/ui/Button/shared'
-import s from './page.module.scss'
 import Link from 'next/link'
+import { ButtonSize, ButtonVariant } from '@/components/ui/Button/shared'
+import { auth } from '@/utils/auth'
+import { redirect } from 'next/navigation'
 
-export default function IndexPage() {
+import s from './page.module.scss'
+
+export default async function IndexPage() {
+  const session = await auth()
+  if (!session?.user) {
+    redirect('/login')
+  }
+
   return <>
     <Flex
       className={s.top}

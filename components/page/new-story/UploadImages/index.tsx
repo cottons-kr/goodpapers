@@ -26,9 +26,10 @@ function UploadImage(props: UploadImageProps) {
       </Typography.Text>
       <input
         type='file' accept='image/*' multiple
+        name='images'
         onChange={(e) => {
           const files = Array.from(e.target.files || [])
-          props.setFiles(prev => [...prev, ...files])
+          props.setFiles(prev => ([...prev, ...files]))
         }}
       />
     </label>

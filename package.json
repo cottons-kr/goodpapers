@@ -6,9 +6,13 @@
     "dev": "next dev -p 7127",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "prisma:format": "prisma format",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "5.18.0",
     "classnames": "^2.5.1",
     "framer-motion": "^11.3.28",
     "minio": "^8.0.1",
