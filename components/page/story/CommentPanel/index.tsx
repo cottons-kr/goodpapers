@@ -17,6 +17,7 @@ import { StoryCommentPanelItem } from './Item'
 import { Comment, Like } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { uploadComment } from '@/lib/actions/comment'
+import { AnimatePresence, Variants, motion } from 'framer-motion'
 
 import s from './style.module.scss'
 
@@ -29,12 +30,24 @@ export default function StoryCommentPanel(props: StoryCommentPanelProps) {
   const [isOpened, setIsOpened] = useState(false)
   const [isCommented, setIsCommented] = useState(props.comments.find(comment => comment.commenterEmail === session.data?.user?.email) !== undefined)
 
+  const backdropVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
+
   useEffect(() => {
     setIsCommented(props.comments.find(comment => comment.commenterEmail === session.data?.user?.email) !== undefined)
   }, [session])
 
   return <>
-    <div className={classNames(s.backdrop, isOpened && s.show)} onClick={() => setIsOpened(false)} />
+    <AnimatePresence>{
+      isOpened && <motion.div
+        className={s.backdrop}
+        onClick={() => setIsOpened(false)}
+        initial='hidden' animate='visible' exit='hidden'
+        variants={backdropVariants}
+      />
+    }</AnimatePresence>
 
     <div className={classNames(s.container, isOpened && s.opened)}>
       <Flex align='center' justify='space-between'>

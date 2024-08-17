@@ -31,7 +31,6 @@ export default async function StoryPage() {
     redirect('/')
   }
   const { story } = selectedStory
-  console.log(story)
 
   return <>
     <StoryCommentPanel storyId={story.id} comments={story.comments} />
