@@ -34,6 +34,22 @@ export default function StoryCommentPanel(props: StoryCommentPanelProps) {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
   }
+  const containerVariants: Variants = {
+    hidden: {
+      bottom: -575,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+    visible: {
+      bottom: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+  }
 
   useEffect(() => {
     setIsCommented(props.comments.find(comment => comment.commenterEmail === session.data?.user?.email) !== undefined)
@@ -49,7 +65,11 @@ export default function StoryCommentPanel(props: StoryCommentPanelProps) {
       />
     }</AnimatePresence>
 
-    <div className={classNames(s.container, isOpened && s.opened)}>
+    <motion.div
+      className={classNames(s.container, isOpened && s.opened)}
+      initial='hidden' animate={isOpened ? 'visible' : 'hidden'}
+      variants={containerVariants}
+    >
       <Flex align='center' justify='space-between'>
         <Flex align='center' gap={NumberPreset[14]}>
           <Typography.Text
@@ -117,6 +137,6 @@ export default function StoryCommentPanel(props: StoryCommentPanelProps) {
           ))
         }</Flex>
       </Flex>
-    </div>
+    </motion.div>
   </>
 }
