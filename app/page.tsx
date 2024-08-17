@@ -14,7 +14,7 @@ export default function IndexPage() {
   return <>
     <Flex
       className={s.top}
-      direction='column' align='center' justify='flex-end'
+      direction='column' align='center' justify='center'
       gap={NumberPreset[24]}
       height='100%'
     >
