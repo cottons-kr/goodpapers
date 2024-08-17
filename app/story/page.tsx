@@ -24,7 +24,7 @@ export default async function StoryPage() {
             orderBy: { createdAt: 'desc' },
           },
         }
-      }
+      } 
     },
   })
   if (!selectedStory?.story) {
