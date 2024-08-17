@@ -8,6 +8,7 @@ import { TypographySize, TypographyWeight } from '@/components/ui/Typography/sha
 import Button from '@/components/ui/Button'
 import { ButtonSize, ButtonVariant } from '@/components/ui/Button/shared'
 import s from './page.module.scss'
+import Link from 'next/link'
 
 export default function IndexPage() {
   return <>
@@ -47,19 +48,23 @@ export default function IndexPage() {
       >
         아니면, 사연을 공유하고 싶으신가요?
       </Typography.Text>
-      <Button
-        fullWidth
-        size={ButtonSize.LARGE}
-      >
-        사연 작성하기
-      </Button>
-      <Button
-        fullWidth
-        variant={ButtonVariant.PRIMARY}
-        size={ButtonSize.LARGE}
-      >
-        사연 보러가기
-      </Button>
+      <Link href='/new-story'>
+        <Button
+          fullWidth
+          size={ButtonSize.LARGE}
+        >
+          사연 작성하기
+        </Button>
+      </Link>
+      <Link href='/story'>
+        <Button
+          fullWidth
+          variant={ButtonVariant.PRIMARY}
+          size={ButtonSize.LARGE}
+        >
+          사연 보러가기
+        </Button>
+      </Link>
     </Flex>
   </>
 }

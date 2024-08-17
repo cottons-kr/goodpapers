@@ -17,6 +17,7 @@ export const enum TypographySize {
   MEDIUM = 'medium',
   SMALL = 'small',
   EXTRASMALL = 'extrasmall',
+  TINY = 'tiny',
 }
 
 export const TypographyTag = {
