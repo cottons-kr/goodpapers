@@ -3,6 +3,7 @@ import { ColorPalette } from '@/lib/colors'
 
 export const enum TypographyVariant {
   TEXT = 'text',
+  DISPLAY = 'display',
 }
 
 export const enum TypographyWeight {
@@ -20,6 +21,7 @@ export const enum TypographySize {
 
 export const TypographyTag = {
   [TypographyVariant.TEXT]: 'p',
+  [TypographyVariant.DISPLAY]: 'p',
 } as const
 
 export type BaseProps = {

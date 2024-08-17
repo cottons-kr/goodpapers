@@ -1,0 +1,19 @@
+.top {
+  padding-bottom: 150px;
+  .image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: grid;
+    place-items: center;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+.title {
+  text-align: center;
+}
