@@ -1,13 +1,13 @@
 import { ButtonHTMLAttributes } from 'react'
 
 export enum ButtonVariant {
-  DEFAULT,
-  PRIMARY,
+  DEFAULT = 'default',
+  PRIMARY = 'primary',
 }
 
 export enum ButtonSize {
-  SMALL,
-  LARGE,
+  SMALL = 'small',
+  LARGE = 'large',
 }
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

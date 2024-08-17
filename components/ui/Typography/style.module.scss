@@ -1,0 +1,42 @@
+.display {
+  &.extralarge {
+    font-size: var(--display-extralarge-size);
+  }
+  &.large {
+    font-size: var(--display-large-size);
+  }
+  &.medium {
+    font-size: var(--display-medium-size);
+  }
+  &.small {
+    font-size: var(--display-small-size);
+  }
+}
+
+.text {
+  &.large {
+    font-size: var(--text-large-size);
+  }
+  &.medium {
+    font-size: var(--text-medium-size);
+  }
+  &.small {
+    font-size: var(--text-small-size);
+  }
+  &.extrasmall {
+    font-size: var(--text-extrasmall-size);
+  }
+  &.tiny {
+    font-size: var(--text-tiny-size);
+  }
+}
+
+.bold {
+  font-weight: 700;
+}
+.semibold {
+  font-weight: 600;
+}
+.medium {
+  font-weight: 500;
+}

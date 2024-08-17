@@ -1,0 +1,20 @@
+export const enum ColorPalette {
+  Gray50 = '--gray-50',
+  Gray100 = '--gray-100',
+  Gray200 = '--gray-200',
+  Gray300 = '--gray-300',
+  Gray400 = '--gray-400',
+  Gray500 = '--gray-500',
+  Gray600 = '--gray-600',
+  Gray700 = '--gray-700',
+  Gray800 = '--gray-800',
+  Gray900 = '--gray-900',
+  Gray950 = '--gray-950',
+
+  Peach = '--peach',
+  Salmon = '--salmon',
+  Yellow = '--yellow',
+  Orange = '--orange',
+  White = '--white',
+  Black = '--black',
+}
