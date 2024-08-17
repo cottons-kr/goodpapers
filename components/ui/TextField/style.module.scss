@@ -4,4 +4,7 @@
   border-radius: 14px;
   border: 1px solid var(--gray-100);
   background: var(--gray-50);
+  &::placeholder {
+    color: var(--gray-400);
+  }
 }

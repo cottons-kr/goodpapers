@@ -4,12 +4,15 @@ import Typography from '@/components/ui/Typography'
 import { TypographySize, TypographyWeight } from '@/components/ui/Typography/shared'
 import { ColorPalette } from '@/lib/colors'
 import { NumberPreset } from '@/lib/variables'
+import StoryPhoto from '@/components/page/story/Photo'
+import StoryCommentPanel from '@/components/page/story/CommentPanel'
 
 import s from './style.module.scss'
-import StoryPhoto from '@/components/page/story/Photo'
 
 export default function StoryPage() {
   return <>
+    <StoryCommentPanel />
+
     <Flex className={s.container} direction='column' gap={NumberPreset[30]}>
       <StoryTopbar />
 
