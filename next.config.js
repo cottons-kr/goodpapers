@@ -1,3 +1,7 @@
+const withPWA = require('next-pwa')({
+  dest: 'public',
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
@@ -5,6 +9,6 @@ const nextConfig = {
     MINIO_BUCKET_NAME: process.env.MINIO_BUCKET_NAME,
     MINIO_USE_SSL: process.env.MINIO_USE_SSL,
   }
-};
+}
 
-export default nextConfig;
+module.exports = withPWA(nextConfig)
